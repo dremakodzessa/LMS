@@ -18,17 +18,6 @@ import ub.LMS.service.UserService;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    public UserController(BCryptPasswordEncoder bCryptPasswordEncoder){
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Autowired
     private UserService userService;
 
     @Autowired
@@ -58,7 +47,7 @@ public class UserController {
 
         userService.save(userForm);
 
-        securityService.autoLogin(userForm.getEmail(), userForm.getPassword());
+        securityService.autoLogin(userForm.getUsername(), userForm.getPassword());
 
         return "redirect:/welcome";
     }
